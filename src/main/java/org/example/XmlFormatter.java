@@ -68,7 +68,7 @@ public class XmlFormatter {
             StreamResult streamResult = new StreamResult(new File(outPath));
 
             transformer.transform(domSource, streamResult);
-            logger.info("XML file '{}' created successfully!", outPath);
+            logger.info("XML file '{}' created successfully! \n", outPath);
         } catch (TransformerException e) {
             logger.error("Error writing Document to XML file: {}", e.getMessage());
         }
