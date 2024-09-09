@@ -129,14 +129,6 @@ public class CustomLinkedList<E> implements Iterable<E> {
         return false;
     }
 
-    public void print() {
-        Node<E> currentNode = head;
-        while (currentNode != null) {
-            logger.info(String.valueOf(currentNode.data));
-            currentNode = currentNode.next;
-        }
-    }
-
     public boolean isEmpty() {
         return size == 0;
     }
