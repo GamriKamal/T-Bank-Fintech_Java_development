@@ -31,7 +31,9 @@ public class Main {
         });
 
         logListContent(list);
-
+        
+        logger.info("List size: {}", list.size());
+        
         try {
             list.remove(0);
             list.remove(0);
