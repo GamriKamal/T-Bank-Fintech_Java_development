@@ -2,7 +2,7 @@ plugins {
     id("java")
 }
 
-group = "org.example"
+group = "t_bank.mr_irmag"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -12,13 +12,11 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    compileOnly("org.projectlombok:lombok:1.18.24")
-    annotationProcessor("org.projectlombok:lombok:1.18.28")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.16.1")
+    testImplementation("org.mockito:mockito-core:5.5.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.5.0")
     implementation("ch.qos.logback:logback-classic:1.3.11")
-    implementation("javax.xml.bind:jaxb-api:2.3.1")
-    implementation("com.sun.xml.bind:jaxb-core:2.3.0")
-    implementation("com.sun.xml.bind:jaxb-impl:2.3.1")
+    compileOnly ("org.projectlombok:lombok:1.18.20")
+    annotationProcessor ("org.projectlombok:lombok:1.18.20")
 }
 
 tasks.test {

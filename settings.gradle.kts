@@ -1,2 +1,2 @@
-rootProject.name = "T-Bank_parser"
+rootProject.name = "T-Bank_linkedList"
 
