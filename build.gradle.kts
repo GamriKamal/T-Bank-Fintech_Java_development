@@ -1,8 +1,8 @@
 plugins {
-    id("java")
+    kotlin("jvm") version "2.0.10"
 }
 
-group = "t_bank.mr_irmag"
+group = "org.example"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -10,15 +10,19 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("org.mockito:mockito-core:5.5.0")
-    testImplementation("org.mockito:mockito-junit-jupiter:5.5.0")
-    implementation("ch.qos.logback:logback-classic:1.3.11")
-    compileOnly ("org.projectlombok:lombok:1.18.20")
-    annotationProcessor ("org.projectlombok:lombok:1.18.20")
+    testImplementation(kotlin("test"))
+    implementation("io.ktor:ktor-client-core:2.0.0")
+    implementation("io.ktor:ktor-client-cio:2.0.0")
+    implementation("com.google.code.gson:gson:2.8.5")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.0.11")
+    implementation("ch.qos.logback:logback-classic:1.2.6")
+    implementation("org.apache.commons:commons-csv:1.8")
+
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+kotlin {
+    jvmToolchain(17)
 }
