@@ -1,2 +1,1 @@
-rootProject.name = "T-Bank_linkedList"
-
+rootProject.name = "tbank_kudaGo_task"
