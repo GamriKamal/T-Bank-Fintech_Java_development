@@ -33,4 +33,9 @@ public class ParameterizedStorage<K, V> {
     public Set<Map.Entry<K, V>> getEntry() {
         return hashMap.entrySet();
     }
+
+    public ConcurrentHashMap.KeySetView<K,V> keySet() {
+        return hashMap.keySet();
+    }
+
 }
