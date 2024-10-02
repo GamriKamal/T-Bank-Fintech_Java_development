@@ -69,10 +69,12 @@ public class CategoriesService {
 
     @Schema(description = "Создаёт новую категорию и сохраняет её в хранилище.")
     public Categories createCategory(Categories category) {
-        storageManager.getCategoriesStorage().put(category.getId(), category);
+        int newId = getNextId();
+        category.setId(newId);
+        storageManager.getCategoriesStorage().put(newId, category);
 
         try {
-            if (storageManager.getCategoriesStorage().get(category.getId()) == category) {
+            if (storageManager.getCategoriesStorage().get(newId) == category) {
                 logger.info("The category has been added successfully: {}", category);
                 return category;
             }
@@ -111,5 +113,11 @@ public class CategoriesService {
             logger.error("Error! The category with this ID was not found: {}", id);
             throw new NullPointerException("Error! The category with this ID was not found: " + id);
         }
+    }
+
+    private int getNextId() {
+        return storageManager.getCategoriesStorage().keySet().stream()
+                .max(Integer::compareTo)
+                .orElse(0) + 1;
     }
 }
