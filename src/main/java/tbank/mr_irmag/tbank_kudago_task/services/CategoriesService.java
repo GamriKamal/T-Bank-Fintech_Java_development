@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import tbank.mr_irmag.tbank_kudago_task.component.StorageManager;
 import tbank.mr_irmag.tbank_kudago_task.entity.Categories;
 import tbank.mr_irmag.tbank_kudago_task.entity.Locations;
+import tbank.mr_irmag.tbank_kudago_task.exception.CategoryIdAlreadyExistsException;
 
 import java.util.List;
 import java.util.Map;
@@ -69,21 +70,30 @@ public class CategoriesService {
 
     @Schema(description = "Создаёт новую категорию и сохраняет её в хранилище.")
     public Categories createCategory(Categories category) {
-        int newId = getNextId();
-        category.setId(newId);
-        storageManager.getCategoriesStorage().put(newId, category);
+        int categoryId;
 
-        try {
-            if (storageManager.getCategoriesStorage().get(newId) == category) {
-                logger.info("The category has been added successfully: {}", category);
-                return category;
+        if (category.getId() == null) {
+            categoryId = getNextId();
+            category.setId(categoryId);
+        } else {
+            categoryId = category.getId();
+
+            if (storageManager.getCategoriesStorage().containsKey(categoryId)) {
+                throw new CategoryIdAlreadyExistsException("There is already an entity with this ID: " + categoryId);
             }
-        } catch (NoSuchElementException e) {
-            logger.error("Error when adding a category: {}", category);
-            throw new NoSuchElementException("Error when adding a category: " + category);
         }
-        return null;
+
+        storageManager.getCategoriesStorage().put(categoryId, category);
+
+        if (storageManager.getCategoriesStorage().get(categoryId).equals(category)) {
+            logger.info("The category has been added successfully: {}", category);
+            return category;
+        } else {
+            logger.error("Error when adding category: {}", category);
+            throw new IllegalStateException("Category was not added to the storage: " + category);
+        }
     }
+
 
     @Schema(description = "Обновляет категорию по её идентификатору.")
     public Categories updateCategory(int id, Locations locations) {

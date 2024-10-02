@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tbank.mr_irmag.tbank_kudago_task.component.StorageManager;
 import tbank.mr_irmag.tbank_kudago_task.entity.Locations;
+import tbank.mr_irmag.tbank_kudago_task.exception.LocationSlugAlreadyExistsException;
 
 import java.util.List;
 import java.util.Map;
@@ -61,6 +62,9 @@ public class LocationsService {
 
     @Operation(description = "Создает новую локацию и сохраняет ее в хранилище.")
     public Locations createLocation(Locations location) {
+        if(storageManager.getLocationsStorage().containsKey(location.getSlug())) {
+            throw new LocationSlugAlreadyExistsException("There is already such an entity with such an slug!");
+        }
         storageManager.getLocationsStorage().put(location.getSlug(), location);
 
         try {
