@@ -1,11 +1,10 @@
-# Gradle
+HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-# STS (Spring Tool Suite)
 ### STS ###
 .apt_generated
 .classpath
@@ -18,13 +17,8 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-# IntelliJ IDEA
 ### IntelliJ IDEA ###
-.idea/
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea
 *.iws
 *.iml
 *.ipr
@@ -32,15 +26,6 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-# Kotlin
-### Kotlin ###
-.kotlin
-
-# Eclipse
-### Eclipse ###
-# (Add any specific Eclipse ignores you need)
-
-# NetBeans
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
@@ -48,6 +33,5 @@ out/
 /nbdist/
 /.nb-gradle/
 
-# VS Code
 ### VS Code ###
 .vscode/
