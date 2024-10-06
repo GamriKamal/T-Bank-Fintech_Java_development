@@ -10,11 +10,10 @@ import org.springframework.stereotype.Service;
 import tbank.mr_irmag.tbank_kudago_task.component.StorageManager;
 import tbank.mr_irmag.tbank_kudago_task.entity.Categories;
 import tbank.mr_irmag.tbank_kudago_task.entity.Locations;
-import tbank.mr_irmag.tbank_kudago_task.exception.CategoryIdAlreadyExistsException;
+import tbank.mr_irmag.tbank_kudago_task.exceptions.CategoryIdAlreadyExistsException;
 
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service

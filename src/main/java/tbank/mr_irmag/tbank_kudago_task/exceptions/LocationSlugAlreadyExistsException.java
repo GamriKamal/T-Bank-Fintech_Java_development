@@ -1,6 +1,4 @@
-package tbank.mr_irmag.tbank_kudago_task.exception;
-
-import java.io.Serializable;
+package tbank.mr_irmag.tbank_kudago_task.exceptions;
 
 public class LocationSlugAlreadyExistsException extends RuntimeException{
 
