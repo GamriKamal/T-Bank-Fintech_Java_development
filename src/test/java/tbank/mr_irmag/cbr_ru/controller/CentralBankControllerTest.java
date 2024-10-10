@@ -122,7 +122,6 @@ public class CentralBankControllerTest {
                 .andExpect(status().isServiceUnavailable())
                 .andExpect(header().string("Retry-After", "3600"))
                 .andExpect(jsonPath("$.message").value("Service is temporarily unavailable"))
-                .andExpect(jsonPath("$.errorCode").value("SERVICE_UNAVAILABLE"))
-                .andExpect(jsonPath("$.status").value(HttpStatus.SERVICE_UNAVAILABLE.value()));
+                .andExpect(jsonPath("$.code").value(HttpStatus.SERVICE_UNAVAILABLE.value()));
     }
 }

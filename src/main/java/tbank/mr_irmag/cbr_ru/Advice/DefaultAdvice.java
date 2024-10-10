@@ -12,7 +12,6 @@ import tbank.mr_irmag.cbr_ru.exception.CurrencyFromAndToAreEqualException;
 import tbank.mr_irmag.cbr_ru.exception.CurrencyNotFoundException;
 import tbank.mr_irmag.cbr_ru.exception.ServiceUnavailableException;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +27,15 @@ public class DefaultAdvice {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                e.getLocalizedMessage(),
+                HttpStatus.BAD_REQUEST.value()
+        );
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Map<String, String>> handleConstraintViolation(ConstraintViolationException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -40,10 +48,7 @@ public class DefaultAdvice {
     @ExceptionHandler(CurrencyNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCurrencyNotFoundException(CurrencyNotFoundException e) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                "Currency Not Found",
                 e.getLocalizedMessage(),
-                "CURRENCY_NOT_FOUND",
                 HttpStatus.BAD_REQUEST.value()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -52,10 +57,7 @@ public class DefaultAdvice {
     @ExceptionHandler(CurrencyConversionException.class)
     public ResponseEntity<ErrorResponse> handleCurrencyConversionException(CurrencyConversionException e) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                "Currency Conversion Error",
                 e.getLocalizedMessage(),
-                "CURRENCY_CONVERSION_ERROR",
                 HttpStatus.BAD_REQUEST.value()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -64,10 +66,7 @@ public class DefaultAdvice {
     @ExceptionHandler(CurrencyFromAndToAreEqualException.class)
     public ResponseEntity<ErrorResponse> handleCurrencyFromAndToAreEqualException(CurrencyFromAndToAreEqualException e) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                "Currency from and to are equal",
                 e.getLocalizedMessage(),
-                "CURRENCY_EQUAL_ERROR",
                 HttpStatus.BAD_REQUEST.value()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -76,10 +75,7 @@ public class DefaultAdvice {
     @ExceptionHandler(ServiceUnavailableException.class)
     public ResponseEntity<ErrorResponse> handleServiceUnavailableException(ServiceUnavailableException e) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                "Service Unavailable",
                 e.getMessage(),
-                "SERVICE_UNAVAILABLE",
                 HttpStatus.SERVICE_UNAVAILABLE.value()
         );
 
@@ -91,10 +87,7 @@ public class DefaultAdvice {
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ErrorResponse> handleNullPointerException(NullPointerException e) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                "Null Pointer Exception",
                 e.getLocalizedMessage(),
-                "NULL_POINTER",
                 HttpStatus.BAD_REQUEST.value()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
@@ -103,10 +96,7 @@ public class DefaultAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception e) {
         ErrorResponse errorResponse = new ErrorResponse(
-                LocalDateTime.now(),
-                "Internal Server Error",
                 e.getLocalizedMessage() + " An internal error occurred. Please try again later.",
-                "INTERNAL_SERVER_ERROR",
                 HttpStatus.INTERNAL_SERVER_ERROR.value()
         );
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);

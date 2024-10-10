@@ -40,9 +40,9 @@ class DefaultAdviceTest {
 
         // Assert
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Currency Conversion Error", response.getBody().getError());
+        assertEquals("Conversion failed", response.getBody().getMessage());
         assertEquals(message, response.getBody().getMessage());
-        assertEquals("CURRENCY_CONVERSION_ERROR", response.getBody().getErrorCode());
+        assertEquals(400, response.getBody().getCode());
     }
 
     @Test
@@ -56,9 +56,9 @@ class DefaultAdviceTest {
 
         // Assert
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Currency from and to are equal", response.getBody().getError());
+        assertEquals("Currencies are the same", response.getBody().getMessage());
         assertEquals(message, response.getBody().getMessage());
-        assertEquals("CURRENCY_EQUAL_ERROR", response.getBody().getErrorCode());
+        assertEquals(400, response.getBody().getCode());
     }
 
     @Test
@@ -95,9 +95,8 @@ class DefaultAdviceTest {
 
         // Assert
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
-        assertEquals("Null Pointer Exception", response.getBody().getError());
         assertEquals("This is a null pointer exception", response.getBody().getMessage());
-        assertEquals("NULL_POINTER", response.getBody().getErrorCode());
+        assertEquals(400, response.getBody().getCode());
     }
 
     @Test
@@ -110,8 +109,7 @@ class DefaultAdviceTest {
 
         // Assert
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
-        assertEquals("Internal Server Error", response.getBody().getError());
         assertEquals("An unexpected error occurred An internal error occurred. Please try again later.", response.getBody().getMessage());
-        assertEquals("INTERNAL_SERVER_ERROR", response.getBody().getErrorCode());
+        assertEquals(500, response.getBody().getCode());
     }
 }

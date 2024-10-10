@@ -32,6 +32,7 @@ class CacheConfigTest {
     }
 
     private Method getTestMethod() throws NoSuchMethodException {
-        return this.getClass().getDeclaredMethod("customKeyGenerator_ShouldGenerateCorrectKey");
+        return this.getClass().getDeclaredMethod("customKeyGenerator_SuccessGeneration_ShouldGenerateCorrectKey");
     }
+
 }

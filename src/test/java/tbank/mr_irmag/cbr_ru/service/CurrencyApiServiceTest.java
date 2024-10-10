@@ -35,14 +35,14 @@ class CurrencyApiServiceTest {
     void fetchCurrencyDataWithRequest_PositiveCase_ShouldReturnCurrencyData() throws Exception {
         // Arrange
         ConvertCurrencyRequest request = new ConvertCurrencyRequest("USD", "RUB", 100.0);
-        ResponseEntity<String> responseEntity = new ResponseEntity<>("Currency Data", HttpStatus.OK);
+        ResponseEntity<String> responseEntity = new ResponseEntity<>("USD", HttpStatus.OK);
         when(restTemplate.getForEntity(currencyCodesUrl, String.class)).thenReturn(responseEntity);
 
         // Act
         String result = currencyApiService.fetchCurrencyDataWithRequest(request);
 
         // Assert
-        assertEquals("Currency Data", result);
+        assertEquals("USD", result);
     }
 
     @Test

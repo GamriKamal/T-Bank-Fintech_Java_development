@@ -9,7 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tbank.mr_irmag.cbr_ru.DTO.ConvertCurrencyRequest;
+import tbank.mr_irmag.cbr_ru.exception.CurrencyNotFoundException;
 import tbank.mr_irmag.cbr_ru.exception.ServiceUnavailableException;
+
+import java.util.Currency;
 
 @Service
 @Log4j2
@@ -26,6 +29,7 @@ public class CurrencyApiService {
     @Cacheable(value = "currencyDataCache", key = "#request.fromCurrency + '-' + #request.toCurrency")
     @CircuitBreaker(name = "currencyApiService", fallbackMethod = "fallbackFetchCurrencyData")
     public String fetchCurrencyDataWithRequest(ConvertCurrencyRequest request) throws Exception {
+
         var response = restTemplate.getForEntity(currencyCodesUrl, String.class);
 
         if (response.getStatusCode() == HttpStatus.OK) {
@@ -44,6 +48,7 @@ public class CurrencyApiService {
         if (code == null || code.isBlank()) {
             throw new NullPointerException("Provided currency code is null!");
         }
+
 
         var response = restTemplate.getForEntity(currencyCodesUrl, String.class);
 
