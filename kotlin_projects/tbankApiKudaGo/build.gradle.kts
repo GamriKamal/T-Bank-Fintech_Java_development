@@ -33,15 +33,24 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:5.6.2")
 }
 
-
-
 tasks.test {
     useJUnitPlatform()
 }
 
-
 application {
     mainClass.set("MainKt")
+}
+
+kotlin {
+    jvmToolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 tasks.test {
@@ -51,6 +60,7 @@ tasks.test {
         println("file://$buildDir/reports/jacoco/test/html/index.html")
     }
 }
+
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
 }

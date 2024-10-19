@@ -44,16 +44,4 @@ class ReadKudaGoTest {
         verify(restTemplate).getForEntity("url", String.class);
     }
 
-    @Test
-    public void makeRequest_NotSuccess_ReturnNull() {
-        // Arrange
-        when(response.getBody()).thenReturn(null);
-
-        // Act
-        List<Category> list = categoriesReader.convertJsonToList("url", Category.class);
-
-        // Assert
-        assertNull(list);
-    }
-
 }

@@ -10,11 +10,8 @@ import org.springframework.stereotype.Service;
 import tbank.mr_irmag.tbank_kudago_task.component.StorageManager;
 import tbank.mr_irmag.tbank_kudago_task.domain.entity.Category;
 import tbank.mr_irmag.tbank_kudago_task.domain.entity.Location;
-import tbank.mr_irmag.tbank_kudago_task.exceptions.CategoryIdAlreadyExistsException;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Tag(name = "CategoriesService", description = "Сервис для управления категориями, включает получение, создание, обновление и удаление категорий.")
@@ -40,14 +37,16 @@ public class CategoriesService {
 
     @Schema(description = "Получает все категории из хранилища и сохраняет их в локальное хранилище.")
     public List<Category> getAllCategories() {
-        List<Category> list = readKudaGo.convertJsonToList(url_categories, Category.class);
-        if (!list.isEmpty()) {
-            list.forEach(info -> storageManager.getCategoriesStorage().put(info.getId(), info));
+        if(storageManager.getCategoriesStorage() != null){
+            return storageManager
+                    .getCategoriesStorage()
+                    .getHashMap()
+                    .values()
+                    .stream().toList();
         } else {
-            logger.debug("The list is empty!");
-            throw new NullPointerException("Error! The list is empty!");
+            logger.warn("The storage is empty");
+            return null;
         }
-        return list;
     }
 
     @Schema(description = "Получает категорию по её идентификатору.")
@@ -69,30 +68,19 @@ public class CategoriesService {
 
     @Schema(description = "Создаёт новую категорию и сохраняет её в хранилище.")
     public Category createCategory(Category category) {
-        int categoryId;
+        storageManager.getCategoriesStorage().put(category.getId(), category);
 
-        if (category.getId() == null) {
-            categoryId = getNextId();
-            category.setId(categoryId);
-        } else {
-            categoryId = category.getId();
-
-            if (storageManager.getCategoriesStorage().containsKey(categoryId)) {
-                throw new CategoryIdAlreadyExistsException("There is already an entity with this ID: " + categoryId);
+        try {
+            if (storageManager.getCategoriesStorage().get(category.getId()) == category) {
+                logger.info("The category has been added successfully: {}", category);
+                return category;
             }
+        } catch (NoSuchElementException e) {
+            logger.error("Error when adding a category: {}", category);
+            throw new NoSuchElementException("Error when adding a category: " + category);
         }
-
-        storageManager.getCategoriesStorage().put(categoryId, category);
-
-        if (storageManager.getCategoriesStorage().get(categoryId).equals(category)) {
-            logger.info("The category has been added successfully: {}", category);
-            return category;
-        } else {
-            logger.error("Error when adding category: {}", category);
-            throw new IllegalStateException("Category was not added to the storage: " + category);
-        }
+        return null;
     }
-
 
     @Schema(description = "Обновляет категорию по её идентификатору.")
     public Category updateCategory(int id, Location locations) {
@@ -122,11 +110,5 @@ public class CategoriesService {
             logger.error("Error! The category with this ID was not found: {}", id);
             throw new NullPointerException("Error! The category with this ID was not found: " + id);
         }
-    }
-
-    private int getNextId() {
-        return storageManager.getCategoriesStorage().keySet().stream()
-                .max(Integer::compareTo)
-                .orElse(0) + 1;
     }
 }

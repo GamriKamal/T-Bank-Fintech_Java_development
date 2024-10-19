@@ -1,19 +1,14 @@
 package tbank.mr_irmag.tbank_kudago_task.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tbank.mr_irmag.tbank_kudago_task.aspect.TimeMeasurable;
 import tbank.mr_irmag.tbank_kudago_task.domain.entity.Category;
 import tbank.mr_irmag.tbank_kudago_task.domain.entity.Location;
-import tbank.mr_irmag.tbank_kudago_task.exceptions.ErrorResponse;
 import tbank.mr_irmag.tbank_kudago_task.services.CategoriesService;
 
 import java.util.List;
@@ -31,82 +26,61 @@ public class CategoriesController {
     }
 
     @GetMapping
-    @Operation(summary = "Получить все категории", description = "Возвращает список категорий")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Успешно получены категории"),
-            @ApiResponse(responseCode = "500", description = "Ошибка сервера", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
+    @Operation(summary = "Получить все категории с endpoint'a",
+            description = "Возвращает список категорий с endpoint'a [https://kudago.com/public-api/v1.4/place-categories]")
     public ResponseEntity<?> getAllCategories() {
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
             List<Category> categories = categoriesService.getAllCategories();
-            return ResponseEntity.ok(categories);
+            String jsonCategories = objectMapper.writeValueAsString(categories);
+
+            return ResponseEntity.ok().body(jsonCategories);
         } catch (Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse("Ошибка получения категорий", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить категорию по id", description = "Возвращает объект Categories по конкретному id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Успешно получена категория"),
-            @ApiResponse(responseCode = "404", description = "Категория не найдена", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
     public ResponseEntity<?> getCategoryById(@PathVariable("id") int id) {
         try {
             Category category = categoriesService.getCategoryById(id);
-            return ResponseEntity.ok(category);
+            return ResponseEntity.ok().body("Successfully retrieved item: " + category);
         } catch (Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse("Ошибка получения категории", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+            return ResponseEntity.badRequest().body("Something get wrong while adding item in storage: " + e.getMessage());
         }
     }
 
     @PostMapping
-    @Operation(summary = "Создать категорию", description = "Создает категорию и сохраняет в хранилище.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Категория успешно создана"),
-            @ApiResponse(responseCode = "400", description = "Ошибка при создании категории", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
+    @Operation(summary = "Создать категорию", description = "Создает категорию и сохранаят в параметризованный класс хранилище.")
     public ResponseEntity<?> createCategory(@RequestBody Category category) {
         try {
-            Category createdCategory = categoriesService.createCategory(category);
-            return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
+            categoriesService.createCategory(category);
+            return ResponseEntity.ok().body("Successfully added item: " + category);
         } catch (Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse("Ошибка создания категории", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            return ResponseEntity.badRequest().body("Something get wrong while adding item in storage: " + e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Обновляет категорию по id", description = "Возвращает измененный объект Categories")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Категория успешно обновлена"),
-            @ApiResponse(responseCode = "400", description = "Ошибка при обновлении категории", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
+    @Operation(summary = "Обновляет категорию по id", description = "Возвращает изменный объект Categories")
     public ResponseEntity<?> updateCategoryById(@PathVariable("id") int id, @RequestBody Location locations) {
         try {
-            Category updatedCategory = categoriesService.updateCategory(id, locations);
-            return ResponseEntity.ok(updatedCategory);
+            Category category = categoriesService.updateCategory(id, locations);
+            return ResponseEntity.ok().body("Succsessfully updated item: " + category);
         } catch (Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse("Ошибка обновления категории", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            return ResponseEntity.badRequest().body("Something get wrong while updating item in storage:" + e.getMessage());
         }
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удалить категорию по id", description = "Удаляет объект Categories из хранилища по id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Категория успешно удалена"),
-            @ApiResponse(responseCode = "404", description = "Категория не найдена", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-    })
-    public ResponseEntity<?> deleteCategoryById(@PathVariable("id") int id) {
+    public ResponseEntity<String> deleteCategoryById(@PathVariable("id") int id) {
         try {
             categoriesService.deleteCategoryById(id);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body("Succsessfully deleted item by id: " + id);
         } catch (Exception e) {
-            ErrorResponse errorResponse = new ErrorResponse("Ошибка удаления категории", e.getMessage());
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+            return ResponseEntity.badRequest().body("Something get wrong while deleting item in storage: " + e.getMessage());
         }
     }
 }

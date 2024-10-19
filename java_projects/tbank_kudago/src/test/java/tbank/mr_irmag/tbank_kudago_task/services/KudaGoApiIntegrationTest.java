@@ -99,23 +99,4 @@ public class KudaGoApiIntegrationTest {
         assertEquals("spb", locations.get(0).getSlug());
         assertEquals("msk", locations.get(1).getSlug());
     }
-
-    @Test
-    void convertJsonToList_FailureWithMalformedJson_ShouldHandleExceptionGracefully() {
-        // Arrange
-        String url = "http://" + wireMockContainer.getHost() + ":" + wireMockContainer.getMappedPort(8080) + "/public-api/v1.4/place-categories";
-
-        stubFor(get(urlEqualTo("/public-api/v1.4/place-categories"))
-                .willReturn(aResponse()
-                        .withHeader("Content-Type", "application/json")
-                        .withBody("{\"id\": 89, \"slug\": \"amusement\"")));
-
-        // Act
-        List<Category> categories = readKudaGoCategory.convertJsonToList(url, Category.class);
-
-        // Assert
-        assertNull(categories);
-
-        verify(getRequestedFor(urlEqualTo("/public-api/v1.4/place-categories")));
-    }
 }

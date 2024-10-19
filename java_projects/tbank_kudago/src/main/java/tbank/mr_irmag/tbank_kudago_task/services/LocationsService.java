@@ -9,12 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import tbank.mr_irmag.tbank_kudago_task.component.StorageManager;
 import tbank.mr_irmag.tbank_kudago_task.domain.entity.Location;
-import tbank.mr_irmag.tbank_kudago_task.exceptions.LocationSlugAlreadyExistsException;
 
-import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Tag(name = "LocationsService", description = "Сервис для управления данными локаций.")
@@ -33,14 +29,15 @@ public class LocationsService {
 
     @Operation(description = "Получает все локации из внешнего источника и сохраняет их в хранилище.")
     public List<Location> getAllLocations() {
-        List<Location> list = readKudaGo.convertJsonToList(url_locations, Location.class);
-        if (!list.isEmpty()) {
-            list.forEach(locations -> storageManager.getLocationsStorage().put(locations.getSlug(), locations));
+        if(storageManager.getLocationsStorage() != null) {
+            return storageManager.getLocationsStorage()
+                    .getHashMap()
+                    .values()
+                    .stream().toList();
         } else {
-            logger.debug("List is empty!");
-            throw new NullPointerException("List is empty!");
+            logger.warn("The storage is empty");
+            return null;
         }
-        return list;
     }
 
     @Operation(description = "Получает локацию по ее уникальному идентификатору (slug).")
@@ -62,9 +59,6 @@ public class LocationsService {
 
     @Operation(description = "Создает новую локацию и сохраняет ее в хранилище.")
     public Location createLocation(Location location) {
-        if(storageManager.getLocationsStorage().containsKey(location.getSlug())) {
-            throw new LocationSlugAlreadyExistsException("There is already such an entity with such an slug!");
-        }
         storageManager.getLocationsStorage().put(location.getSlug(), location);
 
         try {
