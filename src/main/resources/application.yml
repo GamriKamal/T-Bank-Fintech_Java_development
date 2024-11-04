@@ -2,20 +2,17 @@ spring:
   application:
     name: tbank_kudaGo_task
   datasource:
-    url: jdbc:postgresql://localhost:5433/lesson9
+    url: jdbc:postgresql://localhost:5433/lesson11
     username: postgresql
     password: root
     driver-class-name: org.postgresql.Driver
-    jpa:
-      hibernate:
-        ddl-auto: update
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
-    liquibase:
-      enabled: true
-      change-log=classpath: db/changelog/db.changelog-master.yaml
   jpa:
     hibernate:
-      ddl-auto: none
-    show-sql: true
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+token:
+  signing:
+    key: bXlT3cQ7GQ9PTeRHz0kF8FlqKuoZQzP4Vbq4YlU1sjI=
