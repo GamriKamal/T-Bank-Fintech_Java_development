@@ -1,6 +1,7 @@
 package tbank.mr_irmag.tbank_kudago_task.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import tbank.mr_irmag.tbank_kudago_task.domain.entity.Role;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class AuthenticationService {
     private final UserService userService;
     private final JwtService jwtService;
@@ -47,18 +49,22 @@ public class AuthenticationService {
 
 
     public JwtAuthenticationResponse resetPassword(PasswordResetRequest request) {
+        log.info(request.toString());
         if (!"0000".equals(request.getConfirmationCode())) {
             throw new IllegalArgumentException("Неверный код подтверждения");
         }
 
         var user = userService.getByUsername(request.getUsername());
+        log.info(user.toString() );
 
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
         userService.update(user);
 
-        UserDetails userDetails = userService.getByUsername(request.getUsername());
+        User updatedUser = userService.getByUsername(request.getUsername());
+        log.info(updatedUser.toString());
 
-        return new JwtAuthenticationResponse(jwtService.generateToken(userDetails, true));
+        return new JwtAuthenticationResponse(jwtService.generateToken(updatedUser, true));
 
     }
 }

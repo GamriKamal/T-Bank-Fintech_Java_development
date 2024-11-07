@@ -10,7 +10,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PasswordResetRequest {
 
-    @Schema(description = "Имя пользователя", example = "Jon")
+    @Schema(description = "Имя пользователя", example = "Kamal")
     @NotBlank(message = "Имя пользователя не может быть пустым")
     private String username;
 
