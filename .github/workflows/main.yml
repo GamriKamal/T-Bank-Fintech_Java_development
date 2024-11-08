@@ -2,7 +2,7 @@ name: Java CI/CD Pipeline
 
 on:
   pull_request:
-    branches: [main]   # Срабатывание на каждый push в MR в main ветку
+    branches: [main]
 
 jobs:
   build:
