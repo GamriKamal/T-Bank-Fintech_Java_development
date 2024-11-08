@@ -36,22 +36,32 @@ class ApiKudaGo {
             logger.debug { "Retrieved response: $response" }
             val jsonObject = JsonParser().parse(response.bodyAsText()).asJsonObject
             val resultsJsonArray = jsonObject.getAsJsonArray("results")
+
             for (item in resultsJsonArray) {
                 var temp = gson.fromJson(item, News::class.java)
                 result.add(temp)
             }
-
         } catch (e: ClientRequestException) {
             logger.error { "Error occurred: ${e.message}" }
         } catch (e: JsonParseException) {
             logger.error { "JSON parse error: ${e.message}" }
         } catch (e: Exception) {
             logger.error { "Exception: ${e.message}" }
+        } finally {
+            try {
+                client.close()
+                logger.info { "HttpClient has been closed successfully." }
+            } catch (e: Exception) {
+                logger.error { "Error closing HttpClient: ${e.message}" }
+            }
         }
         return result
     }
 
     fun saveNews(path: String, news: Collection<News>) {
+        val writer = BufferedWriter(Files.newBufferedWriter(Paths.get(path)))
+        val csvPrinter = CSVPrinter(writer, CSVFormat.DEFAULT)
+
         try {
             val validatedPath = validateFilePath(path)
 
@@ -69,9 +79,16 @@ class ApiKudaGo {
 
             logger.info { "Successfully created CSV file: $validatedPath" }
         } catch (e: IOException) {
-            logger.error { "Error occurred: ${e.stackTraceToString()}" }
+            logger.error { "Error occurred while writing file: ${e.message}" }
         } catch (e: Exception) {
             logger.error { "Exception: ${e.message}" }
+        } finally {
+            try {
+                csvPrinter.close()
+                writer.close()
+            } catch (e: Exception) {
+                logger.error { "Failed to close resources: ${e.message}" }
+            }
         }
     }
 
