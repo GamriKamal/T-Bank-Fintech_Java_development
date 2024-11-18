@@ -29,6 +29,7 @@ public class XmlFormatter {
         if (xmlString != null) {
             Document document = parseXmlToDocument(xmlString);
             if (document != null) {
+                logger.debug("Converting xml string to document...");
                 writeDocumentToFile(document, outPath);
             }
         }
@@ -68,7 +69,7 @@ public class XmlFormatter {
             StreamResult streamResult = new StreamResult(new File(outPath));
 
             transformer.transform(domSource, streamResult);
-            logger.info("XML file '{}' created successfully! \n", outPath);
+            logger.debug("XML file '{}' created successfully! \n", outPath);
         } catch (TransformerException e) {
             logger.error("Error writing Document to XML file: {}", e.getMessage());
         }
