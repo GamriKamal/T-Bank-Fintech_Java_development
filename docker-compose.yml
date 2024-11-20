@@ -1,16 +1,30 @@
-version: '3.8'
+version: '3'
 services:
-  postgres_db:
-    image: postgres:13
-    container_name: postgresql_db_v1
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
     ports:
-      - "5433:5432"
+      - "5672:5672"
+      - "15672:15672"
     environment:
-      - POSTGRES_USER=postgresql
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=lesson9
-    volumes:
-      - db-data:/var/lib/postgresql/data
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
 
-volumes:
-  db-data: {}
+  zookeeper:
+    image: confluentinc/cp-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: PLAINTEXT://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    ports:
+      - "9092:9092"

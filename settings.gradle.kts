@@ -1,1 +1,2 @@
-rootProject.name = "tbank_kudaGo_task"
+rootProject.name = "BenchmarkMessageBroker"
+

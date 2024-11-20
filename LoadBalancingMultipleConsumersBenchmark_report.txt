@@ -1,0 +1,24 @@
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 45157242.67, 13344671749.67, 0.00
+testRabbitMQLoadBalancing, AverageTime, 0.00, 0.00, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 0.00, 0.00, 0.00
+testRabbitMQLoadBalancing, AverageTime, 9758964686.00, 3574764213.33, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancingMultipleConsumers, AverageTime, 37979182.00, 16012261002.00, 0.00
+testRabbitMQLoadBalancingMultipleConsumers, AverageTime, 0.00, 0.00, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancingMultipleConsumers, AverageTime, 0.00, 0.00, 0.00
+testRabbitMQLoadBalancingMultipleConsumers, AverageTime, 6415469820.67, 6923444631.67, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 44392672.33, 13345373572.00, 0.00
+testRabbitMQLoadBalancing, AverageTime, 0.00, 0.00, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 0.00, 0.00, 0.00
+testRabbitMQLoadBalancing, AverageTime, 9754096690.00, 3582602958.67, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancingMultipleConsumers, AverageTime, 37617774.00, 16010594398.00, 0.00
+testRabbitMQLoadBalancingMultipleConsumers, AverageTime, 0.00, 0.00, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancingMultipleConsumers, AverageTime, 0.00, 0.00, 0.00
+testRabbitMQLoadBalancingMultipleConsumers, AverageTime, 6412407089.00, 6927666140.00, 0.00
