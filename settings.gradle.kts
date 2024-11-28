@@ -1,1 +1,1 @@
-rootProject.name = "tbank_kudaGo_task"
+rootProject.name = "hm16"
