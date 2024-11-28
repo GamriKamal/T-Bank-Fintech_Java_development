@@ -1,28 +1,40 @@
 plugins {
-    id("java")
-    id("me.champeau.jmh") version "0.7.2"
+    java
+    id("org.springframework.boot") version "3.4.0"
+    id("io.spring.dependency-management") version "1.1.6"
 }
 
 group = "t_bank.mr_irmag"
-version = "1.0-SNAPSHOT"
+version = "0.0.1-SNAPSHOT"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
 
 repositories {
     mavenCentral()
 }
 
-
 dependencies {
-    implementation("org.apache.kafka:kafka-clients:3.6.0")
-    implementation("com.rabbitmq:amqp-client:5.16.0")
-    implementation("org.openjdk.jmh:jmh-core:1.33")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.0")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.13.1")
+    compileOnly("org.projectlombok:lombok")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    annotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
-jmh {
-    warmupIterations.set(1)
-    iterations.set(3)
-    fork.set(1)
-}
-
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
 }

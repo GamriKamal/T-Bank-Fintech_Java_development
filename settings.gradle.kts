@@ -1,2 +1,1 @@
-rootProject.name = "BenchmarkMessageBroker"
-
+rootProject.name = "hm16"
