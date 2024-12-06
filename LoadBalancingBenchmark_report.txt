@@ -1,0 +1,30 @@
+Benchmark, Mode, Throughput (ops/s), Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 34057774.000000, 13344724989.333334, 171073128.333333, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+Benchmark, Mode, Throughput (ops/s), Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 129614211.000000, 13951865765.333334, 129237248.000000, 0.000000
+Benchmark, Mode, Throughput (ops/s), Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 33514653.000000, 13342219448.000000, 115600831.666667, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+Benchmark, Mode, Throughput (ops/s), Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 127954746.000000, 13939464965.666666, 127540484.000000, 0.000000
+Benchmark, Mode, Throughput (ops/s), Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 32041778.000000, 13339322782.333334, 197600816.666667, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+Benchmark, Mode, Throughput (ops/s), Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 131246275.000000, 13972799564.333334, 130778091.000000, 0.000000
+Benchmark, Mode, Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 32579446.000000, 13343205671.333334, 155952658.333333, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+Benchmark, Mode, Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 138300290.333333, 13983829488.000000, 137820093.333333, 0.000000
+Benchmark, Mode, Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 34702114.000000, 13342613553.666666, 150399720.333333, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+Benchmark, Mode, Producer Latency (ms), Consumer Processing Time (ms), Replication/Delivery Ack Time (ms), Message Delivery Delay (ms)
+testKafkaLoadBalancing, AverageTime, 0.000000, 0.000000, 0.000000, 0.000000
+testRabbitMQLoadBalancing, AverageTime, 128883399.666667, 13963931647.000000, 128459513.333333, 0.000000

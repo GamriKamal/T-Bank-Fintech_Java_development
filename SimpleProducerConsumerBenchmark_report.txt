@@ -1,0 +1,20 @@
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms)
+testKafkaProducerConsumer, AverageTime, 1057809.05, 40030511651.00, 118474614.00
+testRabbitMQProducerConsumer, AverageTime, 0.00, 0.00, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms)
+testKafkaProducerConsumer, AverageTime, 0.00, 0.00, 0.00
+testRabbitMQProducerConsumer, AverageTime, 19279066235.00, 20717604116.00, 19279066235.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms)
+testKafkaProducerConsumer, AverageTime, 1048459.36, 40031761707.00, 117427448.00
+testRabbitMQProducerConsumer, AverageTime, 0.00, 0.00, 0.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms)
+testKafkaProducerConsumer, AverageTime, 0.00, 0.00, 0.00
+testRabbitMQProducerConsumer, AverageTime, 19274050299.00, 20722732148.00, 19274050299.00
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
+Benchmark, Mode, Throughput (ops/s), Latency (ms), Consumer Processing Time (ms), Delivery Ack Time (ms)
